@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "skills": {
+    "english-vocabulary": {
+      "source": "ayeshasyesda06-dev/ai-vocab-builder",
+      "sourceType": "github",
+      "skillPath": "SKILL.md",
+      "computedHash": "9832c8aa90eee6107d3217ba2156fe5f0bf76676ae091b9ed6cc29886b7675ce"
+    }
+  }
+}
