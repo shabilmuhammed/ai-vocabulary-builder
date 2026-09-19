@@ -4,7 +4,7 @@
 // Fill in Nefny's email before deploying with Access enabled.
 const PLAYER_BY_EMAIL = {
   "shabilmuhammed@gmail.com": "shabil",
-  "REPLACE_WITH_NEFNY_EMAIL": "nefny",
+  "hnefny@gmail.com": "nefny",
 };
 const VALID = new Set(["shabil", "nefny"]);
 

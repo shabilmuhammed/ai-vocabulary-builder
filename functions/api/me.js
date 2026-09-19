@@ -2,7 +2,7 @@
 
 const PLAYER_BY_EMAIL = {
   "shabilmuhammed@gmail.com": "shabil",
-  "REPLACE_WITH_NEFNY_EMAIL": "nefny",
+  "hnefny@gmail.com": "nefny",
 };
 
 export async function onRequestGet({ request }) {
