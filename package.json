@@ -6,7 +6,8 @@
   "description": "A cozy daily vocabulary game for two.",
   "scripts": {
     "build:data": "node scripts/build-data.mjs",
-    "dev": "wrangler pages dev . --d1=DB",
+    "dev": "node scripts/dev-server.mjs",
+    "dev:cf": "wrangler pages dev . --d1=DB",
     "db:init:local": "wrangler d1 execute wordnest --local --file=./schema.sql",
     "db:init:remote": "wrangler d1 execute wordnest --remote --file=./schema.sql"
   }
