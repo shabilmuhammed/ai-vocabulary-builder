@@ -183,17 +183,80 @@ function renderLeaderboard() {
   box.appendChild(hero);
 }
 
+/* ---------- revise: month calendar ---------- */
+const MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+const pad2 = (n) => String(n).padStart(2, "0");
+const dstr = (y, m, day) => `${y}-${pad2(m + 1)}-${pad2(day)}`;
+const daysIn = (y, m) => new Date(y, m + 1, 0).getDate();
+const dowMon = (y, m) => (new Date(y, m, 1).getDay() + 6) % 7; // Monday = 0
+function todayStr() { return state.days[0] ? state.days[0].date : new Date().toISOString().slice(0, 10); }
+function revYears() {
+  const now = +todayStr().slice(0, 4);
+  const ys = state.days.map((d) => +d.date.slice(0, 4));
+  const min = ys.length ? Math.min(...ys) : now;
+  const out = []; for (let y = min; y <= now; y++) out.push(y); return out;
+}
+
 function renderRevise() {
-  const box = $("#revise"); box.innerHTML = "";
-  state.days.forEach((d) => {
-    const { day, mon } = fmtShort(d.date);
-    const chip = el("button", "rchip");
-    const my = scoreFor(d.date, PLAYERS[state.player].key);
-    const sc = my ? `${my.score}/${my.total}` : "—";
-    chip.innerHTML = `<div class="d">${day}</div><div class="m">${mon}</div><div class="sc ${my ? "" : "empty"}">${sc}</div>`;
-    chip.addEventListener("click", async () => { await loadDay(d.date); renderWords(); renderLeaderboard(); renderRevise(); show("home"); });
-    box.appendChild(chip);
-  });
+  if (!state.rev) { const t = todayStr(); state.rev = { y: +t.slice(0, 4), m: +t.slice(5, 7) - 1 }; }
+  const { y, m } = state.rev;
+  $("#revMonLbl").textContent = MONTHS[m];
+  $("#revYrLbl").textContent = y;
+
+  const lessons = new Set(state.days.map((d) => d.date));
+  const player = PLAYERS[state.player].key;
+  const today = todayStr();
+  const grid = $("#reviseGrid"); grid.innerHTML = "";
+  const n = daysIn(y, m), lead = dowMon(y, m);
+  for (let i = 0; i < lead; i++) grid.appendChild(el("div", "revcell blank"));
+
+  let played = 0;
+  for (let day = 1; day <= n; day++) {
+    const ds = dstr(y, m, day);
+    const hasLesson = lessons.has(ds);
+    const sc = hasLesson ? scoreFor(ds, player) : null;
+    const cell = el("button", "revcell");
+    if (!hasLesson) {
+      cell.classList.add("none"); cell.innerHTML = `<span class="d">${day}</span>`;
+    } else if (sc) {
+      played++; cell.classList.add("played");
+      if (sc.score >= Math.ceil(sc.total * 0.9)) cell.classList.add("high");
+      cell.innerHTML = `<span class="d">${day}</span><span class="s">${sc.score}/${sc.total}</span>`;
+    } else {
+      cell.classList.add("missed"); cell.innerHTML = `<span class="d">${day}</span><span class="dot"></span>`;
+    }
+    if (ds === today) {
+      cell.classList.add("today");
+      if (hasLesson && !sc) { cell.classList.remove("missed"); cell.classList.add("play"); cell.innerHTML = `<span class="d">${day}</span><span class="s">play</span>`; }
+    }
+    if (hasLesson) cell.addEventListener("click", async () => {
+      await loadDay(ds); renderWords(); renderLeaderboard(); show("home");
+    });
+    grid.appendChild(cell);
+  }
+  $("#reviseDone").textContent = played ? `${played} played` : "";
+}
+
+function stepMonth(delta) {
+  let { y, m } = state.rev; m += delta;
+  if (m < 0) { m = 11; y -= 1; } if (m > 11) { m = 0; y += 1; }
+  state.rev = { y, m }; closeRevMenus(); renderRevise();
+}
+function closeRevMenus() { const a = $("#revMonMenu"), b = $("#revYrMenu"); if (a) a.hidden = true; if (b) b.hidden = true; }
+function markRevMenus() {
+  [...$("#revMonMenu").children].forEach((b, i) => b.classList.toggle("on", i === state.rev.m));
+  [...$("#revYrMenu").children].forEach((b) => b.classList.toggle("on", +b.textContent === state.rev.y));
+}
+function wireReviseControls() {
+  const monMenu = $("#revMonMenu"), yrMenu = $("#revYrMenu");
+  monMenu.innerHTML = ""; yrMenu.innerHTML = "";
+  MONTHS.forEach((nm, i) => { const b = el("button", null, nm.slice(0, 3)); b.addEventListener("click", (e) => { e.stopPropagation(); state.rev.m = i; closeRevMenus(); renderRevise(); }); monMenu.appendChild(b); });
+  revYears().forEach((yy) => { const b = el("button", null, String(yy)); b.addEventListener("click", (e) => { e.stopPropagation(); state.rev.y = yy; closeRevMenus(); renderRevise(); }); yrMenu.appendChild(b); });
+  $("#revPrev").addEventListener("click", () => stepMonth(-1));
+  $("#revNext").addEventListener("click", () => stepMonth(1));
+  $("#revMonBtn").addEventListener("click", (e) => { e.stopPropagation(); yrMenu.hidden = true; monMenu.hidden = !monMenu.hidden; markRevMenus(); });
+  $("#revYrBtn").addEventListener("click", (e) => { e.stopPropagation(); monMenu.hidden = true; yrMenu.hidden = !yrMenu.hidden; markRevMenus(); });
+  document.addEventListener("click", closeRevMenus);
 }
 
 /* ---------- quiz flow ---------- */
@@ -324,6 +387,8 @@ async function init() {
     if (!state.days.length) { $("#wordList").innerHTML = `<div class="muted">No lessons yet — check back after the daily run.</div>`; return; }
     await loadDay(state.days[0].date);
     await Scores.list();
+    const t0 = todayStr(); state.rev = { y: +t0.slice(0, 4), m: +t0.slice(5, 7) - 1 };
+    wireReviseControls();
     renderWords(); renderLeaderboard(); renderRevise();
   } catch (e) {
     $("#wordList").innerHTML = `<div class="muted">Couldn't load today's words.<br><small>${e.message}</small></div>`;

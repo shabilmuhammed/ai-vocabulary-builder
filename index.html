@@ -43,8 +43,24 @@
       <div class="sec-h"><h2>Leaderboard</h2><span class="datechip">You &amp; Nefny</span></div>
       <div class="lb" id="leaderboard"></div>
 
-      <div class="sec-h"><h2>Revise</h2></div>
-      <div class="revise" id="revise"></div>
+      <div class="sec-h"><h2>Revise</h2><span class="datechip" id="reviseDone"></span></div>
+      <div class="revctrl">
+        <button class="rnav" id="revPrev" aria-label="Previous month"><svg viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="rpick">
+          <button class="rpill" id="revMonBtn"><span id="revMonLbl">—</span><svg class="car" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <button class="rpill" id="revYrBtn"><span id="revYrLbl">—</span><svg class="car" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        </div>
+        <button class="rnav" id="revNext" aria-label="Next month"><svg viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="rmenu m" id="revMonMenu" hidden></div>
+        <div class="rmenu y" id="revYrMenu" hidden></div>
+      </div>
+      <div class="dow" aria-hidden="true"><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span></div>
+      <div class="revgrid" id="reviseGrid"></div>
+      <div class="revlegend">
+        <i><span class="sw"></span>Played</i>
+        <i><span class="sw miss"></span>Missed</i>
+        <i><span class="sw now"></span>Today</i>
+      </div>
     </section>
 
     <!-- QUIZ -->
