@@ -5,8 +5,7 @@ compatibility_date = "2024-11-01"
 pages_build_output_dir = "."
 
 # D1 database binding (available in Functions as env.DB).
-# database_id is filled in after you run: wrangler d1 create wordnest
 [[d1_databases]]
 binding = "DB"
 database_name = "wordnest"
-database_id = "REPLACE_AFTER_D1_CREATE"
+database_id = "08423a59-9d93-447e-bd39-4b4aa3146192"
