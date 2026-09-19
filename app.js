@@ -102,16 +102,19 @@ function buildQuiz(words, date) {
       const opts = shuffled([w].concat(others.slice(0, 3)), rnd);
       return { type, word: w.word, prompt: `Which word means &ldquo;${w.meaning}&rdquo;?`, options: opts.map((o) => o.word), answer: opts.findIndex((o) => o.word === w.word) };
     } else {
+      const opts = shuffled([w].concat(others.slice(0, 3)), rnd);
       const re = new RegExp("\\b" + w.word.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "\\b", "i");
-      const sentence = (w.example && re.test(w.example)) ? w.example.replace(re, "<span class='blank'>&nbsp;&nbsp;&nbsp;</span>") : `${w.meaning} — the word is a <span class='blank'>&nbsp;&nbsp;&nbsp;</span>.`;
-      return { type, word: w.word, meaning: w.meaning, prompt: `Fill the blank:<br>${sentence}`, answer: w.word };
+      const sentence = (w.example && re.test(w.example))
+        ? w.example.replace(re, "<span class='blank'>&nbsp;&nbsp;&nbsp;&nbsp;</span>")
+        : `<span class='blank'>&nbsp;&nbsp;&nbsp;&nbsp;</span> &mdash; ${w.meaning}`;
+      return { type, word: w.word, prompt: `Fill the blank:<br>${sentence}`, options: opts.map((o) => o.word), answer: opts.findIndex((o) => o.word === w.word) };
     }
   });
   return { date, questions, answers: new Array(questions.length).fill(null), i: 0 };
 }
 
 /* ---------- views ---------- */
-function show(view) { ["home", "quiz", "result"].forEach((v) => { $("#view-" + v).hidden = v !== view; }); window.scrollTo({ top: 0 }); }
+function show(view) { ["home", "quiz", "result", "review"].forEach((v) => { $("#view-" + v).hidden = v !== view; }); window.scrollTo({ top: 0 }); }
 
 function renderWhoami() {
   const p = PLAYERS[state.player];
@@ -269,34 +272,18 @@ function renderQuestion() {
   q.questions.forEach((_, k) => { const d = el("i"); if (k < q.i) d.className = "done"; else if (k === q.i) d.className = "now"; dots.appendChild(d); });
 
   const card = $("#quizCard"); const foot = $("#quizFoot"); card.innerHTML = ""; foot.innerHTML = "";
-  const already = q.answers[q.i];
 
   card.appendChild(el("div", "ask", item.prompt));
-  if (item.type === "fill") {
-    const input = el("input", "blankin"); input.type = "text"; input.autocomplete = "off"; input.autocapitalize = "none"; input.spellcheck = false; input.placeholder = "Type the word";
-    input.id = "q_" + q.i;
-    if (already) input.value = already.value;
-    card.appendChild(input);
-    input.addEventListener("keydown", (e) => { if (e.key === "Enter") submitAnswer(); });
-    const btn = el("button", "cta", nextLabel()); btn.addEventListener("click", submitAnswer); foot.appendChild(btn);
-    setTimeout(() => input.focus(), 40);
-  } else {
-    const opts = el("div", "opts");
-    item.options.forEach((o, k) => {
-      const b = el("button", "opt", `<span class="k">${"ABCD"[k]}</span>${o}<span class="tick"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>`);
-      b.addEventListener("click", () => { q.answers[q.i] = { value: k }; revealAndAdvance(); });
-      opts.appendChild(b);
-    });
-    card.appendChild(opts);
-  }
+  const opts = el("div", "opts");
+  item.options.forEach((o, k) => {
+    const b = el("button", "opt", `<span class="k">${"ABCD"[k]}</span>${o}<span class="tick"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>`);
+    b.addEventListener("click", () => { q.answers[q.i] = { value: k }; revealAndAdvance(); });
+    opts.appendChild(b);
+  });
+  card.appendChild(opts);
 }
 function nextLabel() { return state.quiz.i === state.quiz.questions.length - 1 ? "See results" : "Next"; }
 
-function submitAnswer() {
-  const q = state.quiz; const input = $("#q_" + q.i);
-  if (input) { const v = input.value.trim(); if (!v) { input.focus(); return; } q.answers[q.i] = { value: v }; }
-  advance();
-}
 function revealAndAdvance() {
   const q = state.quiz; const item = q.questions[q.i]; const chosen = q.answers[q.i].value;
   const opts = $("#quizCard").querySelectorAll(".opt");
@@ -306,11 +293,7 @@ function revealAndAdvance() {
 }
 function advance() { const q = state.quiz; if (q.i < q.questions.length - 1) { q.i += 1; renderQuestion(); } else finishQuiz(); }
 
-function isCorrect(item, ans) {
-  if (!ans) return false;
-  if (item.type === "fill") return norm(ans.value) === norm(item.answer);
-  return ans.value === item.answer;
-}
+function isCorrect(item, ans) { return !!ans && ans.value === item.answer; }
 
 async function finishQuiz() {
   const q = state.quiz;
@@ -355,13 +338,34 @@ function renderResult(score, total) {
     ${banner}${beat}
     <div class="streakline">${flame}${streak}-day streak</div>
     <div class="actions">
-      <button class="cta" id="rReview">Review the words</button>
+      <button class="cta" id="rReviewAns">Review answers</button>
       <button class="cta ghost" id="rRetry">Try again</button>
       <button class="cta ghost" id="rHome">Back to home</button>
     </div>`;
-  $("#rReview").addEventListener("click", () => show("home"));
+  $("#rReviewAns").addEventListener("click", () => { renderReview(); show("review"); });
   $("#rRetry").addEventListener("click", startQuiz);
   $("#rHome").addEventListener("click", () => { renderLeaderboard(); renderRevise(); show("home"); });
+}
+
+function renderReview() {
+  const q = state.quiz;
+  const box = $("#reviewList"); box.innerHTML = "";
+  let score = 0;
+  q.questions.forEach((item, k) => {
+    const ans = q.answers[k];
+    const ok = isCorrect(item, ans);
+    if (ok) score++;
+    const chosen = ans ? item.options[ans.value] : "—";
+    const correct = item.options[item.answer];
+    const card = el("div", "rev-q " + (ok ? "correct" : "wrong"));
+    card.innerHTML =
+      `<div class="rev-n">Q${k + 1} · ${ok ? "Correct" : "Incorrect"}</div>
+       <div class="rev-prompt">${item.prompt}</div>
+       <div class="rev-ans"><span class="lbl">Your answer</span><span class="v">${chosen}</span></div>` +
+      (ok ? "" : `<div class="rev-correct"><span class="lbl">Correct</span><span class="v">${correct}</span></div>`);
+    box.appendChild(card);
+  });
+  $("#reviewScore").textContent = `${score}/${q.questions.length}`;
 }
 
 /* ---------- toast ---------- */
@@ -376,6 +380,8 @@ function wireHeader() {
   document.addEventListener("click", (e) => { if (!pop.hidden && !pop.contains(e.target) && !$("#whoami").contains(e.target)) pop.hidden = true; });
   $("#startQuiz").addEventListener("click", startQuiz);
   $("#quizBack").addEventListener("click", () => { renderLeaderboard(); show("home"); });
+  $("#reviewBack").addEventListener("click", () => show("result"));
+  $("#reviewHome").addEventListener("click", () => { renderLeaderboard(); renderRevise(); show("home"); });
 }
 
 async function init() {

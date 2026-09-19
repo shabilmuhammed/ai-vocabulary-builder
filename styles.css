@@ -153,7 +153,7 @@ button{font:inherit;cursor:pointer}
 .dots i.done{background:var(--accent-2)} .dots i.now{background:var(--accent)}
 .qcard .ask{font-family:var(--disp);font-weight:600;font-size:21px;line-height:1.28;color:var(--ink);margin:2px 0 18px}
 .qcard .ask b{color:var(--accent)}
-.qcard .ask .blank{border-bottom:2px solid var(--accent);padding:0 20px}
+.blank{border-bottom:2px solid var(--accent);padding:0 18px;display:inline-block}
 .opts{display:flex;flex-direction:column;gap:10px}
 .opt{display:flex;align-items:center;gap:11px;background:var(--paper-2);border:1.5px solid var(--border);
   border-radius:14px;padding:14px;font-size:15px;font-weight:700;color:var(--ink);text-align:left;width:100%;box-shadow:var(--shadow)}
@@ -191,6 +191,24 @@ button{font:inherit;cursor:pointer}
 .streakline{display:inline-flex;align-items:center;gap:7px;margin-top:14px;font-weight:800;font-size:14px;color:var(--flame)}
 .streakline svg{width:17px;height:17px}
 .result .actions{display:flex;flex-direction:column;gap:10px;width:100%;margin-top:22px}
+
+/* review answers */
+.rev-q{background:var(--paper-2);border:1px solid var(--border);border-left-width:4px;border-radius:12px;
+  padding:13px 14px;margin-bottom:11px;box-shadow:var(--shadow)}
+.rev-q.correct{border-left-color:var(--good)}
+.rev-q.wrong{border-left-color:var(--bad)}
+.rev-n{font-size:11px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;margin-bottom:7px}
+.rev-q.correct .rev-n{color:var(--good)}
+.rev-q.wrong .rev-n{color:var(--bad)}
+.rev-prompt{font-size:14.5px;color:var(--ink);margin-bottom:11px;line-height:1.45}
+.rev-prompt b{color:var(--accent)}
+.rev-ans,.rev-correct{display:flex;gap:10px;align-items:baseline;font-size:14px;padding:5px 0}
+.rev-ans .lbl,.rev-correct .lbl{flex:none;width:96px;font-size:10.5px;font-weight:800;letter-spacing:.04em;
+  text-transform:uppercase;color:var(--ink-soft)}
+.rev-ans .v{font-weight:700;color:var(--ink)}
+.rev-q.wrong .rev-ans .v{color:var(--bad)}
+.rev-correct{border-top:1px dashed var(--rule);margin-top:4px;padding-top:9px}
+.rev-correct .v{font-weight:800;color:var(--good)}
 
 .toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:var(--ink);color:var(--paper);
   font-weight:700;font-size:13.5px;padding:11px 18px;border-radius:999px;box-shadow:0 8px 24px rgba(0,0,0,.25);

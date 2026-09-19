@@ -1,6 +1,6 @@
 {
   "date": "2026-09-18",
-  "count": 35,
+  "count": 20,
   "words": [
     {
       "word": "Meticulous",
@@ -121,96 +121,6 @@
       "pron": "yoo-NAN-ih-mus",
       "meaning": "Everyone agrees completely.",
       "example": "The class reached a unanimous decision to plant a garden."
-    },
-    {
-      "word": "Vigilant",
-      "pron": "VIJ-ih-lunt",
-      "meaning": "Watchful and alert to notice danger or problems.",
-      "example": "The lifeguard stayed vigilant while watching the swimmers."
-    },
-    {
-      "word": "Wary",
-      "pron": "WAIR-ee",
-      "meaning": "Cautious and careful of possible danger.",
-      "example": "Be wary of strangers who ask for personal information online."
-    },
-    {
-      "word": "Zealous",
-      "pron": "ZEL-us",
-      "meaning": "Full of energy and enthusiasm for a cause.",
-      "example": "The zealous volunteers cleaned the entire beach in one day."
-    },
-    {
-      "word": "Ample",
-      "pron": "AM-pul",
-      "meaning": "Enough or more than enough; plenty.",
-      "example": "There was ample food for everyone at the school picnic."
-    },
-    {
-      "word": "Blunt",
-      "pron": "BLUNT",
-      "meaning": "Speaking in a direct way, without trying to be polite.",
-      "example": "His blunt comment about her drawing hurt her feelings."
-    },
-    {
-      "word": "Coherent",
-      "pron": "koh-HEER-ent",
-      "meaning": "Clear and logical; easy to understand.",
-      "example": "She gave a coherent explanation of how the machine worked."
-    },
-    {
-      "word": "Deceive",
-      "pron": "dih-SEEV",
-      "meaning": "To make someone believe something false; to trick.",
-      "example": "The magician tried to deceive the audience with his tricks."
-    },
-    {
-      "word": "Elaborate",
-      "pron": "ih-LAB-uh-rit",
-      "meaning": "Detailed and complicated.",
-      "example": "They built an elaborate model of the solar system for the fair."
-    },
-    {
-      "word": "Feasible",
-      "pron": "FEE-zuh-bul",
-      "meaning": "Possible to do easily or practically.",
-      "example": "It is not feasible to finish the project in one night."
-    },
-    {
-      "word": "Grim",
-      "pron": "GRIM",
-      "meaning": "Very serious or gloomy.",
-      "example": "The weather report gave a grim forecast for the weekend trip."
-    },
-    {
-      "word": "Hinder",
-      "pron": "HIN-der",
-      "meaning": "To make it difficult for someone to do something.",
-      "example": "Heavy rain can hinder the farmers' work in the fields."
-    },
-    {
-      "word": "Impartial",
-      "pron": "im-PAR-shul",
-      "meaning": "Fair and not favoring one side.",
-      "example": "The judge remained impartial during the debate competition."
-    },
-    {
-      "word": "Jubilant",
-      "pron": "JOO-bih-lunt",
-      "meaning": "Feeling or showing great happiness after a success.",
-      "example": "The jubilant team celebrated after winning the championship."
-    },
-    {
-      "word": "Lucid",
-      "pron": "LOO-sid",
-      "meaning": "Clear and easy to understand.",
-      "example": "His lucid explanation helped everyone understand the math problem."
-    },
-    {
-      "word": "Monotonous",
-      "pron": "muh-NOT-uh-nus",
-      "meaning": "Boring because it doesn't change; repetitive.",
-      "example": "The long bus ride felt monotonous after the first hour."
     }
   ]
 }
