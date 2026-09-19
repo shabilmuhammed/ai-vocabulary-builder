@@ -3,3 +3,5 @@ node_modules/
 .dev.vars
 .DS_Store
 *.log
+# local dev-server launch config (machine-specific absolute path)
+.claude/launch.json
