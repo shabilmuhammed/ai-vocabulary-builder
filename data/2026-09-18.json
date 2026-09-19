@@ -1,0 +1,216 @@
+{
+  "date": "2026-09-18",
+  "count": 35,
+  "words": [
+    {
+      "word": "Meticulous",
+      "pron": "meh-TIK-yoo-lus",
+      "meaning": "Very careful and paying great attention to detail.",
+      "example": "She was meticulous when checking her exam paper for mistakes."
+    },
+    {
+      "word": "Candid",
+      "pron": "KAN-did",
+      "meaning": "Honest and direct in what you say.",
+      "example": "The coach gave the team a candid opinion about their performance."
+    },
+    {
+      "word": "Diligent",
+      "pron": "DIL-ih-junt",
+      "meaning": "Working hard and carefully.",
+      "example": "A diligent student finishes homework before watching TV."
+    },
+    {
+      "word": "Eloquent",
+      "pron": "EL-oh-kwent",
+      "meaning": "Able to speak or write fluently and persuasively.",
+      "example": "Her eloquent speech convinced the whole class to join the project."
+    },
+    {
+      "word": "Frugal",
+      "pron": "FROO-gul",
+      "meaning": "Careful about spending money; not wasteful.",
+      "example": "He is frugal and saves part of his pocket money every week."
+    },
+    {
+      "word": "Genuine",
+      "pron": "JEN-yoo-in",
+      "meaning": "Real and true, not fake.",
+      "example": "Her apology sounded genuine, so her friend forgave her."
+    },
+    {
+      "word": "Hasty",
+      "pron": "HAY-stee",
+      "meaning": "Done too quickly, without enough thought.",
+      "example": "He made a hasty decision and regretted it later."
+    },
+    {
+      "word": "Immense",
+      "pron": "ih-MENS",
+      "meaning": "Extremely large in size or amount.",
+      "example": "The stadium was filled with an immense crowd for the final match."
+    },
+    {
+      "word": "Jovial",
+      "pron": "JOH-vee-ul",
+      "meaning": "Cheerful and friendly.",
+      "example": "Our new teacher has a jovial personality that makes class fun."
+    },
+    {
+      "word": "Keen",
+      "pron": "KEEN",
+      "meaning": "Having a strong interest or enthusiasm.",
+      "example": "She is keen to learn how computers work."
+    },
+    {
+      "word": "Lenient",
+      "pron": "LEE-nee-unt",
+      "meaning": "Not strict; forgiving when judging someone.",
+      "example": "The teacher was lenient and gave the class extra time for the test."
+    },
+    {
+      "word": "Meager",
+      "pron": "MEE-ger",
+      "meaning": "Very small in amount; not enough.",
+      "example": "The farmers had a meager harvest after the dry season."
+    },
+    {
+      "word": "Novice",
+      "pron": "NAH-vis",
+      "meaning": "A person who is new and inexperienced at something.",
+      "example": "As a novice swimmer, he stayed near the shallow end."
+    },
+    {
+      "word": "Obstinate",
+      "pron": "OB-stih-nit",
+      "meaning": "Stubborn; refusing to change one's mind.",
+      "example": "The obstinate goat would not move from the road."
+    },
+    {
+      "word": "Plausible",
+      "pron": "PLAW-zuh-bul",
+      "meaning": "Seeming reasonable or probably true.",
+      "example": "His excuse for being late sounded plausible."
+    },
+    {
+      "word": "Quaint",
+      "pron": "KWAYNT",
+      "meaning": "Attractively old-fashioned or unusual.",
+      "example": "They visited a quaint little village during the holidays."
+    },
+    {
+      "word": "Reluctant",
+      "pron": "rih-LUK-tunt",
+      "meaning": "Unwilling and hesitant to do something.",
+      "example": "She was reluctant to speak in front of the whole school."
+    },
+    {
+      "word": "Sincere",
+      "pron": "sin-SEER",
+      "meaning": "Honest and true in feeling; not pretended.",
+      "example": "He gave a sincere thank-you to his parents for their support."
+    },
+    {
+      "word": "Tedious",
+      "pron": "TEE-dee-us",
+      "meaning": "Boring and taking too long.",
+      "example": "Copying the notes twice felt like a tedious task."
+    },
+    {
+      "word": "Unanimous",
+      "pron": "yoo-NAN-ih-mus",
+      "meaning": "Everyone agrees completely.",
+      "example": "The class reached a unanimous decision to plant a garden."
+    },
+    {
+      "word": "Vigilant",
+      "pron": "VIJ-ih-lunt",
+      "meaning": "Watchful and alert to notice danger or problems.",
+      "example": "The lifeguard stayed vigilant while watching the swimmers."
+    },
+    {
+      "word": "Wary",
+      "pron": "WAIR-ee",
+      "meaning": "Cautious and careful of possible danger.",
+      "example": "Be wary of strangers who ask for personal information online."
+    },
+    {
+      "word": "Zealous",
+      "pron": "ZEL-us",
+      "meaning": "Full of energy and enthusiasm for a cause.",
+      "example": "The zealous volunteers cleaned the entire beach in one day."
+    },
+    {
+      "word": "Ample",
+      "pron": "AM-pul",
+      "meaning": "Enough or more than enough; plenty.",
+      "example": "There was ample food for everyone at the school picnic."
+    },
+    {
+      "word": "Blunt",
+      "pron": "BLUNT",
+      "meaning": "Speaking in a direct way, without trying to be polite.",
+      "example": "His blunt comment about her drawing hurt her feelings."
+    },
+    {
+      "word": "Coherent",
+      "pron": "koh-HEER-ent",
+      "meaning": "Clear and logical; easy to understand.",
+      "example": "She gave a coherent explanation of how the machine worked."
+    },
+    {
+      "word": "Deceive",
+      "pron": "dih-SEEV",
+      "meaning": "To make someone believe something false; to trick.",
+      "example": "The magician tried to deceive the audience with his tricks."
+    },
+    {
+      "word": "Elaborate",
+      "pron": "ih-LAB-uh-rit",
+      "meaning": "Detailed and complicated.",
+      "example": "They built an elaborate model of the solar system for the fair."
+    },
+    {
+      "word": "Feasible",
+      "pron": "FEE-zuh-bul",
+      "meaning": "Possible to do easily or practically.",
+      "example": "It is not feasible to finish the project in one night."
+    },
+    {
+      "word": "Grim",
+      "pron": "GRIM",
+      "meaning": "Very serious or gloomy.",
+      "example": "The weather report gave a grim forecast for the weekend trip."
+    },
+    {
+      "word": "Hinder",
+      "pron": "HIN-der",
+      "meaning": "To make it difficult for someone to do something.",
+      "example": "Heavy rain can hinder the farmers' work in the fields."
+    },
+    {
+      "word": "Impartial",
+      "pron": "im-PAR-shul",
+      "meaning": "Fair and not favoring one side.",
+      "example": "The judge remained impartial during the debate competition."
+    },
+    {
+      "word": "Jubilant",
+      "pron": "JOO-bih-lunt",
+      "meaning": "Feeling or showing great happiness after a success.",
+      "example": "The jubilant team celebrated after winning the championship."
+    },
+    {
+      "word": "Lucid",
+      "pron": "LOO-sid",
+      "meaning": "Clear and easy to understand.",
+      "example": "His lucid explanation helped everyone understand the math problem."
+    },
+    {
+      "word": "Monotonous",
+      "pron": "muh-NOT-uh-nus",
+      "meaning": "Boring because it doesn't change; repetitive.",
+      "example": "The long bus ride felt monotonous after the first hour."
+    }
+  ]
+}

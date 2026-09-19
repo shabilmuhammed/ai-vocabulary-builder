@@ -1,0 +1,216 @@
+{
+  "date": "2026-09-19",
+  "count": 35,
+  "words": [
+    {
+      "word": "Adamant",
+      "pron": "AD-uh-mant",
+      "meaning": "Refusing to change one's mind; firmly determined.",
+      "example": "She was adamant that she would finish the race despite the pain."
+    },
+    {
+      "word": "Bewilder",
+      "pron": "bih-WIL-der",
+      "meaning": "To confuse someone greatly.",
+      "example": "The complicated map bewildered the new students on their first day."
+    },
+    {
+      "word": "Deft",
+      "pron": "DEFT",
+      "meaning": "Skillful and quick in movement or action.",
+      "example": "The chef's deft hands sliced the vegetables in seconds."
+    },
+    {
+      "word": "Earnest",
+      "pron": "UR-nist",
+      "meaning": "Sincere and serious in intention or effort.",
+      "example": "He made an earnest attempt to apologize to his friend."
+    },
+    {
+      "word": "Flourish",
+      "pron": "FLUR-ish",
+      "meaning": "To grow or develop successfully; to thrive.",
+      "example": "The plants flourish in the sunny corner of the garden."
+    },
+    {
+      "word": "Gullible",
+      "pron": "GUL-ih-bul",
+      "meaning": "Easily tricked or deceived.",
+      "example": "He is so gullible that he believed the obvious prank."
+    },
+    {
+      "word": "Haphazard",
+      "pron": "hap-HAZ-erd",
+      "meaning": "Lacking order or planning; random.",
+      "example": "The books were arranged in a haphazard way on the shelf."
+    },
+    {
+      "word": "Indifferent",
+      "pron": "in-DIF-er-ent",
+      "meaning": "Not interested or concerned about something.",
+      "example": "She seemed indifferent to the outcome of the match."
+    },
+    {
+      "word": "Jargon",
+      "pron": "JAR-gun",
+      "meaning": "Special words or terms used by a particular group.",
+      "example": "The doctors used medical jargon that confused the patients."
+    },
+    {
+      "word": "Kindle",
+      "pron": "KIN-dul",
+      "meaning": "To start a fire, or to arouse a feeling or interest.",
+      "example": "The teacher's story helped kindle a love of reading in her students."
+    },
+    {
+      "word": "Languish",
+      "pron": "LANG-gwish",
+      "meaning": "To become weak or fail to make progress.",
+      "example": "Without water, the plants began to languish in the heat."
+    },
+    {
+      "word": "Meddle",
+      "pron": "MED-ul",
+      "meaning": "To interfere in something that is not one's concern.",
+      "example": "He always tries to meddle in his sister's arguments."
+    },
+    {
+      "word": "Nurture",
+      "pron": "NUR-cher",
+      "meaning": "To care for and help something grow or develop.",
+      "example": "Good teachers nurture their students' curiosity."
+    },
+    {
+      "word": "Optimistic",
+      "pron": "op-tih-MIS-tik",
+      "meaning": "Hopeful and confident about the future.",
+      "example": "She stayed optimistic even after failing the first attempt."
+    },
+    {
+      "word": "Persistent",
+      "pron": "per-SIS-tent",
+      "meaning": "Continuing firmly despite difficulty or opposition.",
+      "example": "His persistent practice finally paid off in the final match."
+    },
+    {
+      "word": "Query",
+      "pron": "KWEER-ee",
+      "meaning": "A question, especially one expressing doubt.",
+      "example": "The student raised a query about the homework instructions."
+    },
+    {
+      "word": "Radiant",
+      "pron": "RAY-dee-unt",
+      "meaning": "Shining brightly, or glowing with happiness.",
+      "example": "Her radiant smile lit up the whole room."
+    },
+    {
+      "word": "Skeptical",
+      "pron": "SKEP-tih-kul",
+      "meaning": "Having doubts; not easily convinced.",
+      "example": "He was skeptical about the rumor going around school."
+    },
+    {
+      "word": "Tranquil",
+      "pron": "TRANG-kwil",
+      "meaning": "Calm and peaceful, free from disturbance.",
+      "example": "The lake looked tranquil in the early morning light."
+    },
+    {
+      "word": "Utilize",
+      "pron": "YOO-tih-lyze",
+      "meaning": "To make practical use of something.",
+      "example": "Students should utilize the library resources before exams."
+    },
+    {
+      "word": "Vibrant",
+      "pron": "VY-brant",
+      "meaning": "Full of energy and life; bright and colorful.",
+      "example": "The market was vibrant with colors and sounds."
+    },
+    {
+      "word": "Whimsical",
+      "pron": "WIM-zih-kul",
+      "meaning": "Playful, unusual, and slightly unpredictable.",
+      "example": "The story had a whimsical character who talked to animals."
+    },
+    {
+      "word": "Yearn",
+      "pron": "YURN",
+      "meaning": "To have a strong desire or longing for something.",
+      "example": "After months away, she began to yearn for home."
+    },
+    {
+      "word": "Zenith",
+      "pron": "ZEE-nith",
+      "meaning": "The highest point or peak of something.",
+      "example": "The team reached the zenith of its success this season."
+    },
+    {
+      "word": "Ambiguous",
+      "pron": "am-BIG-yoo-us",
+      "meaning": "Having more than one possible meaning; unclear.",
+      "example": "His ambiguous answer left the class confused."
+    },
+    {
+      "word": "Boisterous",
+      "pron": "BOY-ster-us",
+      "meaning": "Noisy, energetic, and full of high spirits.",
+      "example": "The boisterous crowd cheered loudly at the game."
+    },
+    {
+      "word": "Concise",
+      "pron": "kun-SYCE",
+      "meaning": "Giving information clearly and in few words.",
+      "example": "Her concise summary made the long chapter easy to understand."
+    },
+    {
+      "word": "Dubious",
+      "pron": "DOO-bee-us",
+      "meaning": "Doubtful or uncertain about something.",
+      "example": "He gave a dubious look when told the test was cancelled."
+    },
+    {
+      "word": "Enhance",
+      "pron": "en-HANS",
+      "meaning": "To improve the quality or value of something.",
+      "example": "Extra practice can enhance your writing skills."
+    },
+    {
+      "word": "Fickle",
+      "pron": "FIK-ul",
+      "meaning": "Changing often, especially in loyalty or feelings.",
+      "example": "The weather has been fickle all week, sunny then rainy."
+    },
+    {
+      "word": "Gregarious",
+      "pron": "grih-GAIR-ee-us",
+      "meaning": "Sociable and enjoying the company of others.",
+      "example": "Her gregarious nature makes her popular at school."
+    },
+    {
+      "word": "Hamper",
+      "pron": "HAM-per",
+      "meaning": "To prevent or slow down the progress of something.",
+      "example": "Heavy traffic can hamper the school bus schedule."
+    },
+    {
+      "word": "Intricate",
+      "pron": "IN-trih-kit",
+      "meaning": "Very detailed and complicated.",
+      "example": "The artist drew an intricate pattern on the wall."
+    },
+    {
+      "word": "Jeopardize",
+      "pron": "JEP-er-dyze",
+      "meaning": "To put something at risk of harm or loss.",
+      "example": "Skipping practice could jeopardize his place on the team."
+    },
+    {
+      "word": "Ponder",
+      "pron": "PON-der",
+      "meaning": "To think carefully about something for a while.",
+      "example": "She sat by the window to ponder her decision."
+    }
+  ]
+}

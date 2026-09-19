@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>WordNest</title>
+<meta name="description" content="A cozy daily vocabulary game for two.">
+<meta name="theme-color" content="#F4ECD8">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Nunito:wght@400;600;700;800&display=swap">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="paper">
+  <div class="wrap">
+
+    <!-- header -->
+    <header class="hd">
+      <div class="brand">
+        <span class="logo" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M4 13c0-3 2.5-5 5.5-5 1.6 0 3 .6 4 1.6C15 8.4 16.7 8 18 8.4c2 .6 3 2.4 2.4 4.2-.5 1.6-2 2.4-3.6 2.4H8c-2.2 0-4-1.4-4-2z" fill="#fff"/><circle cx="9" cy="12" r="1.1" fill="#C25B45"/></svg></span>
+        <span class="name">WordNest<small>Daily · together</small></span>
+      </div>
+      <button class="whoami" id="whoami" aria-haspopup="true">
+        <span class="ava p0" id="whoAva">S</span>
+        <span class="who-name" id="whoName">Shabil</span>
+        <svg class="chev" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </header>
+    <div class="idpop" id="idpop" hidden>
+      <p>Who's playing?</p>
+      <button data-player="0"><span class="ava p0">S</span>Shabil</button>
+      <button data-player="1"><span class="ava p1">N</span>Nefny</button>
+    </div>
+
+    <!-- HOME -->
+    <section id="view-home">
+      <div class="sec-h"><h2>Today's words</h2><span class="datechip" id="homeDate">—</span></div>
+      <div class="card words scrollable" id="wordList"></div>
+      <button class="cta" id="startQuiz">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>
+        <span id="startLabel">Start today's quiz</span>
+      </button>
+
+      <div class="sec-h"><h2>Leaderboard</h2><span class="datechip">You &amp; Nefny</span></div>
+      <div class="lb" id="leaderboard"></div>
+
+      <div class="sec-h"><h2>Revise</h2></div>
+      <div class="revise" id="revise"></div>
+    </section>
+
+    <!-- QUIZ -->
+    <section id="view-quiz" hidden>
+      <div class="qtop">
+        <button class="back" id="quizBack"><svg viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Home</button>
+        <span class="qn" id="quizCount">Question 1</span>
+        <span class="dots" id="quizDots"></span>
+      </div>
+      <div class="qcard" id="quizCard"></div>
+      <div class="qfoot" id="quizFoot"></div>
+    </section>
+
+    <!-- RESULT -->
+    <section id="view-result" hidden>
+      <div class="result" id="resultCard"></div>
+    </section>
+
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+<script src="app.js"></script>
+</body>
+</html>

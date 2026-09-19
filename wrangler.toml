@@ -1,0 +1,12 @@
+# Cloudflare Pages config for WordNest.
+# The static site is served from the repo root; API lives in /functions.
+name = "wordnest"
+compatibility_date = "2024-11-01"
+pages_build_output_dir = "."
+
+# D1 database binding (available in Functions as env.DB).
+# database_id is filled in after you run: wrangler d1 create wordnest
+[[d1_databases]]
+binding = "DB"
+database_name = "wordnest"
+database_id = "REPLACE_AFTER_D1_CREATE"
