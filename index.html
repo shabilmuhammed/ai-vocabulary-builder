@@ -39,6 +39,13 @@
 
     <!-- HOME -->
     <section id="view-home">
+      <div class="sec-h"><h2>Flashcards</h2><span class="datechip">Your deck</span></div>
+      <button class="deck-entry" id="openDeck">
+        <span class="stack" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span class="deck-txt"><span class="t">Study deck</span><span class="s" id="deckCount">—</span></span>
+        <span class="go">Study</span>
+      </button>
+
       <div class="sec-h"><h2>Today's words</h2><span class="datechip" id="homeDate">—</span></div>
       <div class="card words" id="wordList"></div>
       <button class="cta" id="startQuiz">
@@ -83,6 +90,23 @@
     <!-- RESULT -->
     <section id="view-result" hidden>
       <div class="result" id="resultCard"></div>
+    </section>
+
+    <!-- FLASHCARDS -->
+    <section id="view-cards" hidden>
+      <div class="qtop">
+        <button class="back" id="fcBack"><svg viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Home</button>
+        <span class="fc-title">Flashcards</span>
+        <span class="qn fc-count" id="fcCount">0 / 0</span>
+      </div>
+      <div class="fc-progress"><i id="fcProgress"></i></div>
+      <div class="fc-wrap"><div class="fc-card" id="fcCard" role="button" tabindex="0" aria-label="Flashcard — tap to flip"></div></div>
+      <div class="fc-controls" id="fcControls">
+        <button class="fc-round" id="fcPrev" aria-label="Previous card"><svg viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <button class="cta fc-flip" id="fcFlip"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12a8 8 0 0 1 14-5.3M20 12a8 8 0 0 1-14 5.3M18 3v4h-4M6 21v-4h4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Flip card</button>
+        <button class="fc-round" id="fcNext" aria-label="Next card"><svg viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      </div>
+      <button class="fc-remove" id="fcRemove"><svg viewBox="0 0 24 24" fill="none"><path d="M5 7h14M10 11v6M14 11v6M6 7l1 12h10l1-12M9 7V4h6v3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Remove from deck</button>
     </section>
 
     <!-- REVIEW -->

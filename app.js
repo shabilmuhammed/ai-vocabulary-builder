@@ -18,6 +18,8 @@ const state = {
   player: 0,       // active player index
   quiz: null,      // {date, questions:[...], answers:[...], i}
   scores: [],      // cached [{date,player,score,total}]
+  cards: [],       // active player's flashcard deck [{date,word,pron,meaning,example}]
+  deckIdx: 0,      // card currently shown in the deck
 };
 
 /* ---------- seeded RNG (same quiz for both players on a date) ---------- */
@@ -39,7 +41,11 @@ async function loadIdentity() {
   } catch (_) { /* no backend yet — fall back to local pick */ }
   try { const v = localStorage.getItem("wn_player"); if (v != null) state.player = Number(v) || 0; } catch (_) {}
 }
-function setPlayer(idx) { state.player = idx; try { localStorage.setItem("wn_player", String(idx)); } catch (_) {} renderWhoami(); renderLeaderboard(); }
+async function setPlayer(idx) {
+  state.player = idx; try { localStorage.setItem("wn_player", String(idx)); } catch (_) {}
+  renderWhoami(); renderLeaderboard();
+  await Cards.list(); renderWords(); renderDeckEntry();
+}
 
 /* ---------- scores (API with localStorage fallback) ---------- */
 const Scores = {
@@ -64,6 +70,34 @@ function mergeLocal(entry) {
   if (i >= 0) { if (entry.score >= s[i].score) s[i] = entry; } else s.push(entry);
   cacheWrite(s); state.scores = s;
 }
+
+/* ---------- flashcards (API with per-player localStorage fallback) ---------- */
+const cardKey = (c) => c.date + "|" + c.word;
+const Cards = {
+  storeKey() { return "wn_cards_" + PLAYERS[state.player].key; },
+  readLocal() { try { return JSON.parse(localStorage.getItem(this.storeKey()) || "[]"); } catch (_) { return []; } },
+  writeLocal(c) { try { localStorage.setItem(this.storeKey(), JSON.stringify(c)); } catch (_) {} },
+  has(c) { return state.cards.some((x) => cardKey(x) === cardKey(c)); },
+  async list() {
+    try { const d = await fetchJSON("api/flashcards?player=" + PLAYERS[state.player].key); state.cards = d.cards || []; this.writeLocal(state.cards); }
+    catch (_) { state.cards = this.readLocal(); }
+    return state.cards;
+  },
+  async sync(method, card) {
+    try {
+      const r = await fetch("api/flashcards", { method, headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...card, player: PLAYERS[state.player].key }) });
+      if (r.ok) { const d = await r.json(); if (d.cards) { state.cards = d.cards; this.writeLocal(d.cards); } }
+    } catch (_) { /* offline / no backend — local copy already updated */ }
+  },
+  async add(card) {
+    if (!this.has(card)) { state.cards = state.cards.concat([card]); this.writeLocal(state.cards); }
+    await this.sync("POST", card);
+  },
+  async remove(card) {
+    state.cards = state.cards.filter((x) => cardKey(x) !== cardKey(card)); this.writeLocal(state.cards);
+    await this.sync("DELETE", card);
+  },
+};
 
 /* ---------- score analysis ---------- */
 function scoreFor(date, playerKey) { const r = state.scores.find((s) => s.date === date && s.player === playerKey); return r || null; }
@@ -114,7 +148,7 @@ function buildQuiz(words, date) {
 }
 
 /* ---------- views ---------- */
-function show(view) { ["home", "quiz", "result", "review"].forEach((v) => { $("#view-" + v).hidden = v !== view; }); window.scrollTo({ top: 0 }); }
+function show(view) { ["home", "quiz", "result", "review", "cards"].forEach((v) => { $("#view-" + v).hidden = v !== view; }); window.scrollTo({ top: 0 }); }
 
 function renderWhoami() {
   const p = PLAYERS[state.player];
@@ -130,12 +164,74 @@ function renderWords() {
   $("#startLabel").textContent = isToday ? "Start today's quiz" : "Quiz for " + fmtDate(state.current);
   const box = $("#wordList"); box.innerHTML = "";
   state.words.forEach((w) => {
+    const card = { date: state.current, word: w.word, pron: w.pron || "", meaning: w.meaning, example: w.example || "" };
+    const saved = Cards.has(card);
     const c = el("div", "word");
     c.innerHTML = `<div class="top"><span class="w">${w.word}</span>${w.pron ? `<span class="say">${w.pron}</span>` : ""}</div>
-      <div class="mean">${w.meaning}</div>${w.example ? `<div class="ex">“${w.example}”</div>` : ""}`;
+      <div class="mean">${w.meaning}</div>${w.example ? `<div class="ex">“${w.example}”</div>` : ""}
+      <button class="save${saved ? " on" : ""}" aria-pressed="${saved}" aria-label="${saved ? "Remove from" : "Add to"} flashcards">${saved ? ICON_BM_ON : ICON_BM}</button>`;
+    c.querySelector(".save").addEventListener("click", async () => {
+      if (Cards.has(card)) { await Cards.remove(card); toast("Removed from flashcards"); }
+      else { await Cards.add(card); toast("Added to flashcards"); }
+      renderWords(); renderDeckEntry();
+    });
     box.appendChild(c);
   });
 }
+
+/* ---------- flashcards ---------- */
+const ICON_BM = `<svg viewBox="0 0 24 24" fill="none"><path d="M7 4h10v16l-5-3.5L7 20z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>`;
+const ICON_BM_ON = `<svg viewBox="0 0 24 24"><path d="M7 4h10v16l-5-3.5L7 20z" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>`;
+const ICON_FLIP = `<svg viewBox="0 0 24 24" fill="none"><path d="M4 12a8 8 0 0 1 14-5.3M18 3v4h-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+
+function renderDeckEntry() {
+  const n = state.cards.length;
+  $("#deckCount").textContent = n ? `${n} card${n === 1 ? "" : "s"} saved` : "No cards saved yet";
+}
+
+function tagDate(d) { return new Date(d + "T00:00:00").toLocaleDateString(undefined, { day: "numeric", month: "short" }).toUpperCase(); }
+function highlightWord(example, word) {
+  const stem = word.slice(0, Math.max(4, word.length - 2)).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  return example.replace(new RegExp("\\b(" + stem + "\\w*)", "i"), "<mark>$1</mark>");
+}
+
+function renderDeck() {
+  const cards = state.cards; const n = cards.length;
+  const wrap = $("#fcCard"); wrap.classList.remove("flipped");
+  $("#fcControls").hidden = !n; $("#fcRemove").hidden = !n;
+  if (!n) {
+    $("#fcCount").textContent = "0 / 0"; $("#fcProgress").style.width = "0%";
+    wrap.innerHTML = `<div class="fc-face"><div class="fc-front"><div class="fc-big fc-empty">No cards yet</div>
+      <div class="fc-hint">Tap the bookmark on any word to save it here.</div></div></div>`;
+    return;
+  }
+  state.deckIdx = Math.min(Math.max(state.deckIdx, 0), n - 1);
+  const c = cards[state.deckIdx];
+  $("#fcCount").textContent = `${state.deckIdx + 1} / ${n}`;
+  $("#fcProgress").style.width = `${((state.deckIdx + 1) / n) * 100}%`;
+  wrap.innerHTML = `
+    <div class="fc-face">
+      <div class="fc-tag"><span>Word</span><b>${tagDate(c.date)}</b></div>
+      <div class="fc-front"><div class="fc-big">${c.word}</div>${c.pron ? `<div class="fc-pron">${c.pron}</div>` : ""}</div>
+      <div class="fc-hint">${ICON_FLIP}Tap to see the meaning</div>
+    </div>
+    <div class="fc-face fc-back">
+      <div class="fc-tag"><span>Meaning</span><b>${tagDate(c.date)}</b></div>
+      <div class="fc-backbody">
+        <div class="fc-word">${c.word}</div>
+        <div><div class="fc-lbl">Meaning</div><div class="fc-mean">${c.meaning}</div></div>
+        ${c.example ? `<div><div class="fc-lbl">Example</div><div class="fc-ex">${highlightWord(c.example, c.word)}</div></div>` : ""}
+      </div>
+    </div>`;
+}
+function flipCard() { if (state.cards.length) $("#fcCard").classList.toggle("flipped"); }
+function stepCard(delta) { const n = state.cards.length; if (!n) return; state.deckIdx = (state.deckIdx + delta + n) % n; renderDeck(); }
+async function removeCurrentCard() {
+  const c = state.cards[state.deckIdx]; if (!c) return;
+  await Cards.remove(c); toast("Removed from deck");
+  renderDeck(); renderDeckEntry(); renderWords();
+}
+function openDeck() { state.deckIdx = 0; renderDeck(); show("cards"); }
 
 function renderLeaderboard() {
   const box = $("#leaderboard"); box.innerHTML = "";
@@ -382,6 +478,22 @@ function wireHeader() {
   $("#quizBack").addEventListener("click", () => { renderLeaderboard(); show("home"); });
   $("#reviewBack").addEventListener("click", () => show("result"));
   $("#reviewHome").addEventListener("click", () => { renderLeaderboard(); renderRevise(); show("home"); });
+
+  // flashcards
+  $("#openDeck").addEventListener("click", openDeck);
+  $("#fcBack").addEventListener("click", () => show("home"));
+  $("#fcCard").addEventListener("click", flipCard);
+  $("#fcFlip").addEventListener("click", flipCard);
+  $("#fcPrev").addEventListener("click", () => stepCard(-1));
+  $("#fcNext").addEventListener("click", () => stepCard(1));
+  $("#fcRemove").addEventListener("click", removeCurrentCard);
+  // swipe left / right between cards
+  let sx = null;
+  $("#fcCard").addEventListener("touchstart", (e) => { sx = e.touches[0].clientX; }, { passive: true });
+  $("#fcCard").addEventListener("touchend", (e) => {
+    if (sx == null) return; const dx = e.changedTouches[0].clientX - sx; sx = null;
+    if (Math.abs(dx) > 50) { e.preventDefault(); stepCard(dx < 0 ? 1 : -1); }
+  });
 }
 
 async function init() {
@@ -392,7 +504,8 @@ async function init() {
     await loadIndex();
     if (!state.days.length) { $("#wordList").innerHTML = `<div class="muted">No lessons yet — check back after the daily run.</div>`; return; }
     await loadDay(state.days[0].date);
-    await Scores.list();
+    await Promise.all([Scores.list(), Cards.list()]);
+    renderDeckEntry();
     const t0 = todayStr(); state.rev = { y: +t0.slice(0, 4), m: +t0.slice(5, 7) - 1 };
     wireReviseControls();
     renderWords(); renderLeaderboard(); renderRevise();
